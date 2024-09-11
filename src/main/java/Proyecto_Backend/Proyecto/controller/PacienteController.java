@@ -31,7 +31,7 @@ public class PacienteController {
 
     //PUT
     @PutMapping("/modificar")
-    public ResponseEntity<String>  modificarPaciente(@RequestBody PacienteRequestDto paciente){
+    public ResponseEntity<String>  modificarPaciente(@Valid @RequestBody PacienteRequestDto paciente){
         pacienteService.modificarPaciente(paciente);
         String jsonResponse = "{\"mensaje\": \"El paciente fue modificado\"}";
         return ResponseEntity.ok(jsonResponse);

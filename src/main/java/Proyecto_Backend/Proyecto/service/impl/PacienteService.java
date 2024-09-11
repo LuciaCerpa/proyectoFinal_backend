@@ -56,7 +56,7 @@ public class PacienteService implements IPacienteService {
     public void modificarPaciente(PacienteRequestDto paciente) {
         logger.info("Modificando Paciente com ID {}", paciente.getId());
         Optional<PacienteResponseDto> pacienteAux = buscarPorId(paciente.getId());
-        logger.info("Paciente encontrado: {}", pacienteAux);
+        logger.info("Paciente encontrado: {}", pacienteAux.get());
         pacienteRepository.save(modelMapper.map(paciente, Paciente.class));
     }
 

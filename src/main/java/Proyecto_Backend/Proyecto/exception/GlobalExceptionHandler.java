@@ -47,6 +47,7 @@ public class GlobalExceptionHandler {
                 String fieldName = fieldError.getField();
                 String errorMessage = fieldError.getDefaultMessage();
                 errores.add(fieldName + ":" + errorMessage);
+                System.out.println("Error: " + fieldName + ":" + errorMessage);
             }
         }
         ApiError apiError = new ApiError(
