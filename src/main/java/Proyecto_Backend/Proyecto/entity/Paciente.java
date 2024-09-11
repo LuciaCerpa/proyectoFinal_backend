@@ -28,13 +28,17 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @NotBlank
     private String apellido;
+
     @NotBlank
     private String nombre;
+
     @NotBlank
     @Size(min = 8, max = 15)
     private String dni;
+
     @NotNull
     private LocalDate fechaIngreso;
 
@@ -44,7 +48,6 @@ public class Paciente {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.REMOVE)
     @JsonManagedReference(value = "paciente-turno")
-    //@JsonIgnore
     private Set<Turno> turnoSet;
 
     @Override

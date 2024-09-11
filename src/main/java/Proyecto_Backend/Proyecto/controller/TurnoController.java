@@ -27,48 +27,31 @@ public class TurnoController {
     }
     //POST
     @PostMapping("/guardar")
-    public ResponseEntity<TurnoResponseDto> guardarTurno(
-            @Valid @RequestBody TurnoRequestDto turnoRequestDto)
-    {
-        return ResponseEntity.ok(turnoService.guardarTurno(turnoRequestDto));
-    }
+    public ResponseEntity<TurnoResponseDto> guardarTurno(@Valid @RequestBody TurnoRequestDto turnoRequestDto)
+    { return ResponseEntity.ok(turnoService.guardarTurno(turnoRequestDto)); }
 
     //GET TODOS
     @GetMapping("/buscartodos")
-    public ResponseEntity<List<TurnoResponseDto>> buscarTodos(){
-
-        return ResponseEntity.ok(turnoService.buscarTodos());
-    }
+    public ResponseEntity<List<TurnoResponseDto>> buscarTodos(){ return ResponseEntity.ok(turnoService.buscarTodos()); }
 
     //PUT
-
     @PutMapping("/modificar")
-    public ResponseEntity<String>  modificarTurno(@Valid @RequestBody TurnoModifyDto turnoModifyDto){
-        turnoService.modificarTurno(turnoModifyDto);
+    public ResponseEntity<String> modificarTurno(@Valid @RequestBody TurnoModifyDto turnoModifyDto){
+        turnoService.modificarTurnos(turnoModifyDto);
         return ResponseEntity.ok("{\"mensaje\": \"El turno fue modificado\"}");
     }
 
     //DELETE
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Integer id){
-        Optional<TurnoResponseDto> turnoEncontrado = turnoService.buscarPorId(id);
-        if(turnoEncontrado.isPresent()) {
-            turnoService.eliminarTurno(id);
-            return ResponseEntity.ok("el turno fue eliminado");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        turnoService.eliminarTurno(id);
+        return ResponseEntity.ok("el turno "+ id + " fue eliminado");
     }
 
     //GET
     @GetMapping("/buscar/{id}")
-    public ResponseEntity<TurnoResponseDto>  buscarPorId(@PathVariable Integer id){
-        Optional<TurnoResponseDto> turnoEncontrado = turnoService.buscarPorId(id);
-        if(turnoEncontrado.isPresent()) {
-            return ResponseEntity.ok(turnoEncontrado.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Optional<TurnoResponseDto> buscarPorId(@PathVariable Integer id){
+        return turnoService.buscarPorId(id);
     }
 
     @GetMapping("/buscarTurnoApellido/{apellido}")

@@ -1,4 +1,5 @@
 package Proyecto_Backend.Proyecto.entity;
+import Proyecto_Backend.Proyecto.utils.GsonProvider;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -20,7 +21,7 @@ public class Odontologo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank
-    private String numeroMatricula;
+    private String nroMatricula;
     private String nombre;
     private String apellido;
 
@@ -31,11 +32,6 @@ public class Odontologo {
 
     @Override
     public String toString() {
-        return "Odontologo{" +
-                "id=" + id +
-                ", numeroMatricula=" + numeroMatricula +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                '}';
+        return GsonProvider.getGson().toJson(this);
     }
 }

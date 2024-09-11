@@ -3,7 +3,6 @@ package Proyecto_Backend.Proyecto;
 import Proyecto_Backend.Proyecto.entity.Domicilio;
 import Proyecto_Backend.Proyecto.entity.Paciente;
 import Proyecto_Backend.Proyecto.service.impl.PacienteService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest

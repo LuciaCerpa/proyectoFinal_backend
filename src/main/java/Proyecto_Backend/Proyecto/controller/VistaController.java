@@ -1,5 +1,6 @@
 package Proyecto_Backend.Proyecto.controller;
 
+import Proyecto_Backend.Proyecto.dto.response.PacienteResponseDto;
 import Proyecto_Backend.Proyecto.entity.Odontologo;
 import Proyecto_Backend.Proyecto.entity.Paciente;
 import Proyecto_Backend.Proyecto.service.impl.OdontologoService;
@@ -14,30 +15,19 @@ import java.util.Optional;
 @Controller
 public class VistaController {
 
-    private OdontologoService odontologoService;
     private PacienteService pacienteService;
 
-    public VistaController(PacienteService pacienteService, OdontologoService odontologoService) {
+    public VistaController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
-        this.odontologoService = odontologoService;
     }
 
+    //localhost:8080/index?id=1&nombre=paciente1
     @GetMapping("/index")
     public String buscarPaciente(Model model, @RequestParam Integer id){
-        Paciente paciente = pacienteService.buscarPorId(id).get();
-
-        model.addAttribute("nombre", paciente.getNombre());
-        model.addAttribute("apellido", paciente.getApellido());
-        return "index";
-    }
-
-    @GetMapping("/odontologos")
-    public String buscarOdontologo(Model model, @RequestParam Integer id){
-        Optional<Odontologo> odontologo = odontologoService.buscarPorId(id);
-
-        model.addAttribute("nombre", odontologo.get());
-        model.addAttribute("apellido", odontologo.get());
-        return "odontologos";
+        Optional<PacienteResponseDto> paciente = pacienteService.buscarPorId(id);
+        model.addAttribute("nombre", paciente.get().getNombre());
+        model.addAttribute("apellido", paciente.get().getApellido());
+        return "vista/paciente";
     }
 
 }

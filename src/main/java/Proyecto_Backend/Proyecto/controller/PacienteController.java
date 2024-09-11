@@ -1,6 +1,8 @@
 package Proyecto_Backend.Proyecto.controller;
 
 
+import Proyecto_Backend.Proyecto.dto.request.PacienteRequestDto;
+import Proyecto_Backend.Proyecto.dto.response.PacienteResponseDto;
 import Proyecto_Backend.Proyecto.entity.Paciente;
 import Proyecto_Backend.Proyecto.service.IPacienteService;
 import jakarta.validation.Valid;
@@ -29,39 +31,24 @@ public class PacienteController {
 
     //PUT
     @PutMapping("/modificar")
-    public ResponseEntity<String>  modificarPaciente(@RequestBody Paciente paciente){
-        Optional<Paciente> pacienteEncontrado = pacienteService.buscarPorId(paciente.getId());
-        if(pacienteEncontrado.isPresent()){
-            pacienteService.modificarPaciente(paciente);
-            String jsonResponse = "{\"mensaje\": \"El paciente fue modificado\"}";
-            return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<String>  modificarPaciente(@RequestBody PacienteRequestDto paciente){
+        pacienteService.modificarPaciente(paciente);
+        String jsonResponse = "{\"mensaje\": \"El paciente fue modificado\"}";
+        return ResponseEntity.ok(jsonResponse);
     }
 
     //DELETE
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarPaciente(@PathVariable Integer id){
-        Optional<Paciente>  pacienteEncontrado = pacienteService.buscarPorId(id);
-        if(pacienteEncontrado.isPresent()) {
-            pacienteService.eliminarPaciente(id);
-            String jsonResponse = "{\"mensaje\": \"El paciente fue eliminado\"}";
-            return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        pacienteService.eliminarPaciente(id);
+        String jsonResponse = "{\"mensaje\": \"El paciente fue eliminado\"}";
+        return ResponseEntity.ok(jsonResponse);
     }
 
     //GET
     @GetMapping("/buscar/{id}")
-    public ResponseEntity<Paciente>  buscarPorId(@PathVariable Integer id){
-        Optional<Paciente>  pacienteEncontrado = pacienteService.buscarPorId(id);
-        if(pacienteEncontrado.isPresent()) {
-            return ResponseEntity.ok(pacienteEncontrado.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Optional<PacienteResponseDto>  buscarPorId(@PathVariable Integer id){
+        return pacienteService.buscarPorId(id);
     }
 
     //GET
